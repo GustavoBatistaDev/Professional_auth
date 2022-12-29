@@ -12,6 +12,7 @@
 .btn-main{
     background-color: var(--main-color) !important;
     color: white !important;
+    margin-top: 6px;
 }
 
 
