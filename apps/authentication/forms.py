@@ -1,5 +1,5 @@
 from django import forms as django_forms
-from django.contrib.auth import forms, authenticate
+from django.contrib.auth import forms, authenticate, login
 from .models import Users
 from django.core.exceptions import ValidationError
 
@@ -43,11 +43,21 @@ class AuthFormLogin(django_forms.Form):
         else:
             self.confirm_user_activate()   
 
-
         return self.cleaned_data
 
+    def log_into(self, request):
+        if not self.user:
+            raise TypeError('self.user cannot be None, run form.is_valid() first')
+
+        login(request, self.user)
+        return self.user
+
+
     def get_invalid_login_error(self):
-        return ValidationError(f'{self.error_messages["invalid_login"]}', code='invalid_login')
+        return ValidationError(
+            self.error_messages["invalid_login"],
+            code='invalid_login'
+        )
     
     def confirm_user_activate(self):
         if not self.user.is_active:
