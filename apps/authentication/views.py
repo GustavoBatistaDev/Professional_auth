@@ -14,7 +14,7 @@ from django.urls import reverse
 from .decorators import not_authenticated
 
 
-@not_authenticated
+#@not_authenticated
 def register(request: HttpRequest) -> HttpResponse:
 
     if request.method == 'GET':
@@ -58,18 +58,18 @@ def active_account(request: HttpResponse, uidb4, token) -> HttpResponse:
         messages.add_message(request, constants.ERROR, 'The url accessed is not valid' ) 
         return redirect(reverse('register'))
 
-@not_authenticated
+#@not_authenticated
 def login(request: HttpRequest) -> HttpResponse:
 
     if request.method == 'GET':
         auth_form_login = AuthFormLogin()
         return render(request, 'login.html', {'auth_form_login': auth_form_login})
 
-    elif request.method == 'POST':
-        auth_form_login = AuthFormLogin(request.POST)
+    #elif request.method == 'POST':
+      #  auth_form_login = AuthFormLogin(request.POST)
 
-        if auth_form_login.is_valid():
-            pass
+     #   if auth_form_login.is_valid():
+        #    pass
 
 
 def logout_user(request):

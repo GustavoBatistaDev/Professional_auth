@@ -33,8 +33,6 @@ class ActiveAccount:
         path_templates_email = os.path.join(settings.BASE_DIR, 'apps/authentication/templates/emails/active_account.html')
         email_body = render_to_string(path_templates_email, {'active_url':active_url})
         email = EmailMessage(subject, email_body, to=[self._user.email])
-        if email.send():
-            #todo add log success
-            pass
-        #todo add_log error
+        email.send()
+
 

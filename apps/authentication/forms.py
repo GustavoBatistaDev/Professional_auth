@@ -1,6 +1,7 @@
 from django import forms as django_forms
-from django.contrib.auth import forms 
+from django.contrib.auth import forms, authenticate
 from .models import Users
+from django.core.exceptions import ValidationError
 
 
 class UserChangeForm(forms.UserChangeForm):
@@ -26,12 +27,34 @@ class AuthFormLogin(django_forms.Form):
         widget = django_forms.PasswordInput(attrs={'class': 'form-control'})
     )
 
+    error_messages = {
+        'invalid_login': 'Invalid username or password',
+        'inactive': 'User inactive '
+    }
+
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-        print(email)
+        self.user = authenticate(username=email, password=password)
+
+        if not self.user:
+            raise self.get_invalid_login_error()
+
+        else:
+            self.confirm_user_activate()   
+
+
         return self.cleaned_data
-        
+
+    def get_invalid_login_error(self):
+        return ValidationError(f'{self.error_messages["invalid_login"]}', code='invalid_login')
+    
+    def confirm_user_activate(self):
+        if not self.user.is_active:
+            raise ValidationError(
+                self.error_messages['inactive'],
+                code='inactive'
+            )
 
 
 class RegisterForm(UserCreationForm):
