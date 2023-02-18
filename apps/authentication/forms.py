@@ -15,16 +15,15 @@ class UserCreationForm(forms.UserCreationForm):
         
 class AuthFormLogin(django_forms.Form):
     email = django_forms.EmailField(
-        label = "Email",
         max_length = 245,
-        widget = django_forms.EmailInput(attrs={'class': 'form-control'})
+        widget = django_forms.EmailInput(attrs={'class': 'login__input', 'id': 'login-input-user'})
     )
 
     password = django_forms.CharField(
         label = 'Password',
         max_length= 245,
         strip= True,
-        widget = django_forms.PasswordInput(attrs={'class': 'form-control'})
+        widget = django_forms.PasswordInput(attrs={'class': 'login__input'})
     )
 
     error_messages = {
@@ -78,6 +77,13 @@ class RegisterForm(UserCreationForm):
         self.fields['password2'].help_text = None
 
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
+            self.fields[field].widget.attrs.update({'class': 'login__input', 'id': 'login-input-user'})
 
+    def clean_first_name(self) -> str:
+        first_name = self.cleaned_data.get('first_name')
+        if len(first_name) <= 2:
+            raise ValidationError('Primeiro nome precisar ter mais que 2 caracteres.')
+        return super().clean_password2()
+
+#   widget = django_forms.EmailInput(attrs={'class': 'login__input', 'id': 'login-input-user'})
     

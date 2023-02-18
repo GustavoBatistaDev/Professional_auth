@@ -12,6 +12,8 @@ from django.contrib.messages import constants
 from django.contrib.auth import login as auth_login,logout
 from django.urls import reverse
 from .decorators import not_authenticated
+from django.contrib.messages import constants
+from django.contrib import messages
 
 
 #@not_authenticated
@@ -35,6 +37,7 @@ def register(request: HttpRequest) -> HttpResponse:
             messages.add_message(request, constants.SUCCESS, 'Check your email to verificated your account' ) 
             return redirect(reverse('login'))
         
+        messages.add_message(request, constants.ERROR, 'Senha precisa ter.')
         return render(request, 'register.html', {'register_form': register_form})
 
         
@@ -58,7 +61,8 @@ def active_account(request: HttpResponse, uidb4, token) -> HttpResponse:
         messages.add_message(request, constants.ERROR, 'The url accessed is not valid' ) 
         return redirect(reverse('register'))
 
-@not_authenticated
+
+
 def login(request: HttpRequest) -> HttpResponse:
 
     if request.method == 'GET':
@@ -71,7 +75,6 @@ def login(request: HttpRequest) -> HttpResponse:
             if auth_form_login.log_into(request):
                 return redirect('/home')
         return render(request, 'login.html', {'auth_form_login': auth_form_login})
-
 
 
 def logout_user(request):

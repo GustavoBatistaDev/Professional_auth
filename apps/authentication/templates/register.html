@@ -1,29 +1,77 @@
 {% extends 'base_templates/authentication_base.html'%}
 {% load static%}
 
+
 {% block 'head'%}
+    <meta charset="UTF-8">
+    <title>CodePen -  Sign In / Sign Up | Nothing4us</title>
     <link rel="stylesheet" href="{% static 'authentication/css/css.css'%}">
 {% endblock %}
 
-{%block 'body'%}
-    <div class="container mt-4">
-       
+{% block 'body'%}
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sign In / Sign Up | Nothing4us</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'><link rel="stylesheet" href="./style.css">
 
-        <div class="box mt-3">
+</head>
+<body>
 
-            {% if messages%}
-                {% for i in messages%}
-                    <div class="alert alert-{{i.tags}}" role="alert">
+
+<!-- partial:index.partial.html -->
+<div class="login-container">
+	<form action="{% url 'register'%}" method="POST" class="form-login">{% csrf_token%}
+		<ul class="login-nav">
+			<li class="login-nav__item ">
+				<a href="{% url 'login'%}">Sign In</a>
+			</li>
+			<li class="login-nav__item active">
+				<a href="{% url 'register'%}">Sign Up</a>
+			</li>
+		</ul>
+        <label for="login-input-user" class="login__label">
+			First Name
+		</label>
+        {{register_form.first_name}}
+        <label for="login-input-user" class="login__label">
+			Email
+		</label>
+        {{register_form.email}}
+        <label for="login-input-user" class="login__label">
+			Password
+		</label>
+        {{register_form.password1}}
+        <label for="login-input-user" class="login__label">
+			Password Again
+		</label>
+        {{register_form.password2}}
+        <!-- partial -->
+        {% if messages%}
+            {% for i in messages%}
+                    <div class="alert alert-{{i.tags}}" style="color: red;" role="alert">
                         {{i}}
                     </div>
-                {% endfor%}
-            {%endif%}
-            <form action="{% url 'register'%}" method="POST">{% csrf_token %}
-                <h2>Cadastre-se</h2>
-                <hr class="hr">
-                {{register_form.as_p}}
-                <input type="submit" value="enviar" class="btn btn-main">
-        </div>
-            </form>
-    </div>
+            {% endfor%}
+        {%endif%}
+                
+		
+		<input type="submit" class="login__submit" value="Sign up">
+	</form>
+	<a href="{% url 'password_reset'%}" class="login__forgot">Forgot Password?</a>
+</div>
+
+
+  
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
+
+
+
 {% endblock%}

@@ -91,12 +91,12 @@ WSGI_APPLICATION = 'Platform.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('POSTGRES_USER') ,
-        'HOST': '127.0.0.1',
-        'PORT': 5432,
-        'PASSWORD': config('POSTGRES_PASSWORD'),
-        'USER': config('POSTGRES_USER')
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'base_de_dados' ,
+        'HOST': '172.18.0.2',
+        'PORT': 3306,
+        'PASSWORD': config('MYSQL_PASSWORD'),
+        'USER': config('MYSQL_USER')
     }
 }
 
@@ -161,8 +161,18 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 else:
-    # alterar email backend para smtp
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # alterar email backend para smtp 
     pass
+
+# config de email
+
+EMAIL_BACKEND  =  'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER  =  'encodee3@gmail.com'
+EMAIL_HOST_PASSWORD  =  'habgfaahmaqafxbz'
+EMAIL_USE_TLS  =  True
+EMAIL_PORT  =  587
+EMAIL_HOST  =  'smtp.gmail.com'
 
 
 #messages

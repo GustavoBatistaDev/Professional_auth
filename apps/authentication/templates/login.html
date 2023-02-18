@@ -1,28 +1,79 @@
 {% extends 'base_templates/authentication_base.html'%}
 {% load static%}
 
+
 {% block 'head'%}
+    <meta charset="UTF-8">
+    <title>CodePen -  Sign In / Sign Up | Nothing4us</title>
     <link rel="stylesheet" href="{% static 'authentication/css/css.css'%}">
 {% endblock %}
 
-{%block 'body'%}
-    <div class="container mt-4">
+{% block 'body'%}
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sign In / Sign Up | Nothing4us</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+
+    <!--temporario-->
+{% if messages%}
+    {% for i in messages%}
+            <div class="alert alert-{{i.tags}}" role="alert">
+                {{i}}
+            </div>
+    {% endfor%}
+{%endif%}
+
+ <!--temporario-->
+
+<!-- partial:index.partial.html -->
+<div class="login-container-2">
+	<form action="{% url 'login'%}" method="POST" class="form-login">{% csrf_token%}
+		<ul class="login-nav">
+			<li class="login-nav__item active">
+				<a href="#">Sign In</a>
+			</li>
+			<li class="login-nav__item">
+				<a href="{% url 'register'%}">Sign Up</a>
+			</li>
+		</ul>
+        <label for="login-input-user" class="login__label">
+			Email
+		</label>
+        {{auth_form_login.email}}
+        <label for="login-input-user" class="login__label">
+			Password
+		</label>
+        {{auth_form_login.password}}
+        <!-- partial -->
+        {% if messages%}
+            {% for i in messages%}
+                <div class="alert alert-{{i.tags}}" style="color: red;" role="alert">
+                    {{i}}
+                </div>
+            {% endfor%}
+        {%endif%}
+            
+        
+		
+        <input type="submit" class="login__submit" value="Sign in">
+	</form>
+	<a href="#" class="login__forgot">Forgot Password?</a>
+</div>
+
+  
+</body>
+</html>
+
+  
+</body>
+</html>
 
 
-        <div class="box">
-            {% if messages%}
-                {% for i in messages%}
-                    <div class="alert alert-{{i.tags}}" role="alert">
-                        {{i}}
-                    </div>
-                {% endfor%}
-            {%endif%}
-            <form action="{% url 'login'%}" method="POST">{% csrf_token %}
-                <h2>Logar</h2>
-                <hr class="hr">
-                {{auth_form_login}}
-                <input type="submit" value="enviar" class="btn btn-main">
-        </div>
-            </form>
-    </div>
+
 {% endblock%}
