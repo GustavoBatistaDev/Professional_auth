@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab:wght@900&display=swap');
 
 body {
-	background-color: #081b22;
+	background-color: #0f0529;
 	font-family: 'Montserrat', sans-serif;
 	font-size: 16px;
 	line-height: 1.25;
@@ -105,6 +105,13 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
+.new_password1{
+	position: relative;
+	z-index: 1;
+  padding-bottom: 4.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
 .login-nav {
 	position: relative;
 	padding: 0;
@@ -194,6 +201,47 @@ body {
 	background-color: rgba(255, 255, 255, 0.25);
 	letter-spacing: 1px;
 }
+
+
+#id_new_password1 {
+	color: white;
+	font-size: 1.15rem;
+	width: 100%;
+	padding: .5rem 1rem;
+	border: 2px solid transparent;
+	outline: none;
+	border-radius: 1.5rem;
+	background-color: rgba(255, 255, 255, 0.25);
+	letter-spacing: 1px;
+}
+#id_new_password2 {
+	color: white;
+	font-size: 1.15rem;
+	width: 100%;
+	padding: .5rem 1rem;
+	border: 2px solid transparent;
+	outline: none;
+	border-radius: 1.5rem;
+	background-color: rgba(255, 255, 255, 0.25);
+	letter-spacing: 1px;
+}
+
+ul{
+	font-family: 'Montserrat', sans-serif;
+	list-style: none;
+	text-decoration: none;
+	color: red;
+
+}
+
+
+
+
+
+
+
+
+
 
 #id_email{
 	color: white;

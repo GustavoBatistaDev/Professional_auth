@@ -32,35 +32,19 @@
 				<a href="{% url 'register'%}">Sign Up</a>
 			</li>
 		</ul>
-        <label for="login-input-user" class="login__label">
-			First Name
-		</label>
-        {{register_form.first_name}}
-        <label for="login-input-user" class="login__label">
-			Email
-		</label>
-        {{register_form.email}}
-        <label for="login-input-user" class="login__label">
-			Password
-		</label>
-        {{register_form.password1}}
-        <label for="login-input-user" class="login__label">
-			Password Again
-		</label>
-        {{register_form.password2}}
-        <!-- partial -->
-        {% if messages%}
-            {% for i in messages%}
-                    <div class="alert alert-{{i.tags}}" style="color: red;" role="alert">
-                        {{i}}
-                    </div>
-            {% endfor%}
-        {%endif%}
+        <div style="color:white;">
+            {% for field in register_form%}
+            <label class="login__label">{{field.label}}</label>
+            {{field}}
+            {{field.errors}}
+        {% endfor%}
                 
+        </div>
+
 		
 		<input type="submit" class="login__submit" value="Sign up">
 	</form>
-	<a href="{% url 'password_reset'%}" class="login__forgot">Forgot Password?</a>
+
 </div>
 
 

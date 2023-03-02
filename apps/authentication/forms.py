@@ -51,7 +51,6 @@ class AuthFormLogin(django_forms.Form):
         login(request, self.user)
         return self.user
 
-
     def get_invalid_login_error(self):
         return ValidationError(
             self.error_messages["invalid_login"],
@@ -64,12 +63,13 @@ class AuthFormLogin(django_forms.Form):
                 self.error_messages['inactive'],
                 code='inactive'
             )
+        
 
 
 class RegisterForm(UserCreationForm):
     '''Formulario para criacao de usuarios sem permissoes administrativas.'''
     class Meta(UserCreationForm.Meta):
-        fields = ('first_name','email')
+        fields = ('first_name', 'email', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -79,11 +79,13 @@ class RegisterForm(UserCreationForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'login__input', 'id': 'login-input-user'})
 
-    def clean_first_name(self) -> str:
+    def clean_first_name(self):
         first_name = self.cleaned_data.get('first_name')
         if len(first_name) <= 2:
-            raise ValidationError('Primeiro nome precisar ter mais que 2 caracteres.')
-        return super().clean_password2()
+            raise ValidationError(
+                'Este campo precisa ter mais que 3 caracteres.'
+            )
+        return first_name
 
 #   widget = django_forms.EmailInput(attrs={'class': 'login__input', 'id': 'login-input-user'})
     

@@ -16,9 +16,9 @@ from django.contrib.messages import constants
 from django.contrib import messages
 
 
+
 #@not_authenticated
 def register(request: HttpRequest) -> HttpResponse:
-
     if request.method == 'GET':
 
         register_form = RegisterForm()
@@ -36,8 +36,6 @@ def register(request: HttpRequest) -> HttpResponse:
 
             messages.add_message(request, constants.SUCCESS, 'Check your email to verificated your account' ) 
             return redirect(reverse('login'))
-        
-        messages.add_message(request, constants.ERROR, 'Senha precisa ter.')
         return render(request, 'register.html', {'register_form': register_form})
 
         
@@ -60,11 +58,9 @@ def active_account(request: HttpResponse, uidb4, token) -> HttpResponse:
     else:
         messages.add_message(request, constants.ERROR, 'The url accessed is not valid' ) 
         return redirect(reverse('register'))
-
-
+    
 
 def login(request: HttpRequest) -> HttpResponse:
-
     if request.method == 'GET':
         auth_form_login = AuthFormLogin()
         return render(request, 'login.html', {'auth_form_login': auth_form_login})
@@ -73,7 +69,7 @@ def login(request: HttpRequest) -> HttpResponse:
         auth_form_login = AuthFormLogin(request.POST)
         if auth_form_login.is_valid():
             if auth_form_login.log_into(request):
-                return redirect('/home')
+                return redirect('/home')  
         return render(request, 'login.html', {'auth_form_login': auth_form_login})
 
 

@@ -161,13 +161,12 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     # alterar email backend para smtp 
     pass
 
 # config de email
 
-EMAIL_BACKEND  =  'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER  =  'encodee3@gmail.com'
 EMAIL_HOST_PASSWORD  =  'habgfaahmaqafxbz'
 EMAIL_USE_TLS  =  True
